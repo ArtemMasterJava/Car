@@ -1,80 +1,32 @@
+import java.util.Arrays;
+
 /**
  * Created by USER on 21.10.2015.
  */
-public class Car {
+abstract public class Car  {
     private String model;
-    private int wheel;
-    private int passengers;
+    private String color;
+    private Wheel[] wheels;
 
-    public String getModel() {
-        return model;
-    }
-
-    public int getWheel() {
-        return wheel;
-    }
-
-    public int getPassengers() {
-        return passengers;
-    }
-
-
-    public Car(String model, int wheel, int passengers) {
+    public Car(String model, String color, int count, String type) {
         this.model = model;
-        this.wheel = wheel;
-        this.passengers = passengers;
-    }
-
-    public static class Builder{
-        private String model;
-        private int wheel;
-        private int passengers;
-
-        public Builder setModel(String model){
-            this.model = model;
-            return this;
-        }
-        public Builder setWheel(int wheel){
-            this.wheel = wheel;
-            return this;
-        }
-        public Builder setPassengers(int passengers){
-            this.passengers = passengers;
-            return this;
-        }
-        public Car build(){
-            return new Car(model, wheel, passengers);
+        this.color = color;
+        wheels= new Wheel[count];
+        for (int i = 0; i < count ; i++) {
+            wheels[i] = new Wheel(type);
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Car car = (Car) o;
-
-        if (wheel != car.wheel) return false;
-        if (passengers != car.passengers) return false;
-        return !(model != null ? !model.equals(car.model) : car.model != null);
-
+    void move(){
+        System.out.println("Go");
     }
 
-    @Override
-    public int hashCode() {
-        int result = model != null ? model.hashCode() : 0;
-        result = 31 * result + wheel;
-        result = 31 * result + passengers;
-        return result;
+    void stop(){
+        System.out.println("Stop");
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Car{");
-        sb.append("model='").append(model).append('\'');
-        sb.append(", wheel=").append(wheel);
-        sb.append(", passengers=").append(passengers);
-        sb.append('}');
-        return sb.toString();
+        return "Car {"+ model +", "+ color + ", " + Arrays.toString(wheels)+ " }";
     }
 }
